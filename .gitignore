@@ -1,0 +1,32 @@
+# --- Python Standard ---
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+.env
+
+# --- Distribution / Builds ---
+dist/
+build/
+*.egg-info/
+
+# --- Jupyter / Research ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+profile_default/
+ipython_config.py
+
+# --- Quant Data ---
+# You don't want 500MB csv files bloating your git history
+data/
+*.csv
+*.parquet
+*.h5
+*.pkl
+
+# --- IDE Settings ---
+.vscode/
+.idea/
+.DS_Store
+
+# --- Custom ---

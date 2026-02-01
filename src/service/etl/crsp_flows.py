@@ -1,0 +1,30 @@
+from datetime import date
+from pipelines.utils import crsp_schema
+import polars as pl
+import wrds
+from tqdm import tqdm
+from pipelines.utils.tables import Database
+
+
+def load_crsp_monthly_df(start_date: date, end_date: date, user: str) -> pl.DataFrame:
+    wrds_db = wrds.Connection(wrds_username=user)
+
+    df = wrds_db.raw_sql(
+        f"""
+        SELECT
+            date,
+            permno,
+            cusip,
+            ret,
+            retx,
+            prc,
+            vol,
+            shrout
+        FROM crsp_m_stock.msf a
+        WHERE a.date BETWEEN '{start_date}' AND '{end_date}'
+        ;
+        """
+    )
+    df = pl.from_pandas(df, schema_overrides=crsp_schema)
+
+    return df
